@@ -9,6 +9,8 @@ const GlobalTheme = createGlobalStyle`
   }
   body {
     margin: 0;
+    // Fixer la taille à l'horizontale sur iOS
+    -webkit-text-size-adjust: 100%;
   }
   @font-face {
     font-family: 'Futura';

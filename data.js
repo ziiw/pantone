@@ -1,4 +1,4 @@
-{
+const data = {
 	"years": [
 		{
 			"year": 2017,
@@ -223,3 +223,5 @@
 		}
 	]
 }
+
+export const yearsSorted = data.years.sort((a, b) => a.year - b.year)

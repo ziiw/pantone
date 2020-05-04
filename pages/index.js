@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Swiper from 'react-id-swiper';
-import { years } from './../public/data.json'
+import {yearsSorted} from '../data'
+
+import Arrow from './../components/arrow'
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -12,12 +14,16 @@ const Wrapper = styled.div`
   overflow: hidden;
 `
 
+const getSwiperHeight = showDesc => showDesc ? '25%' : '70%'
 const SwiperWrapper = styled.div`
-  flex: 0 1 70%;
+  flex: 0 0 ${props => getSwiperHeight(props.showDesc)};
+  transition: flex 500ms ease;
 `
 
+const getDescriptionHeight = showDesc => showDesc ? '25%' : '30%'
 const DescriptionWrapper = styled.div`
-  flex: 0 1 30%;
+  flex: ${props => getDescriptionHeight(props.showDesc)};
+  transition: flex 500ms ease;
 `
 
 const getBackgroundColor = colors => {
@@ -37,22 +43,33 @@ const Slide = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: translateZ(0);
 `
 
 const getFontColor = colors => {
-  return colors[0].hex
+  if (colors.length > 1) {
+    return `
+    background: linear-gradient(90deg, #${colors[0].hex}, #${colors[1].hex});
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    `
+  } else {
+    return `color: #${colors[0].hex};`
+  }
 }
 
 const Year = styled.div`
-  font-size: 6rem;
+  font-size: ${props => props.showDesc ? '4.5rem' : '6rem'};
   font-family: 'Futura';
-  color: #${props => getFontColor(props.colors)};
+  ${props => getFontColor(props.colors)}
   filter: brightness(0.85);
+  transition: font-size 500ms ease;
 `
 
 const TitleSection = styled.section`
   font-family: 'Overpass';
   padding: 1rem 5vw;
+  padding-bottom: 0;
 
   h2 {
     font-weight: 700;
@@ -65,10 +82,14 @@ const TitleSection = styled.section`
 `
 
 const DescriptionSection = styled.section`
+  font-size: 14px;
   font-family: 'Overpass';
   font-weight: 400;
   padding: 1rem 5vw;
+  padding-top: 0;
   color: #ababab;
+  opacity: ${props => props.showDesc ? 1 : 0};
+  transition: opacity 0.5s ease;
 `
 
 const Author = styled.p`
@@ -79,11 +100,7 @@ const Author = styled.p`
 export default () => {
   const [height, setHeight] = useState()
   const [showDesc, setShowDesc] = useState(false)
-  const [yearsSorted, setYearsSorted] = useState(null)
   useEffect(() => {
-    const sorted = Array.prototype.slice.call(years).sort((a, b) => a.year > b.year)
-    setYearsSorted(sorted)
-    setIndex(sorted.length - 1)
     setHeight(window.innerHeight)
     const sh = height => setHeight(height)
     window.addEventListener('resize', () => {
@@ -93,8 +110,16 @@ export default () => {
     return () => window.removeEventListener('resize', null)
   }, [])
 
+  const params = {
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+    renderPrevButton: () => <Arrow className='swiper-button-prev' />,
+    renderNextButton: () => <Arrow className='swiper-button-next' rotate={180}/>
+  }
   const [swiper, setSwiper] = useState(null)
-  const [index, setIndex] = useState(null)
+  const [index, setIndex] = useState(yearsSorted.length - 1)
   useEffect(() => {
     const setSlideIndex = index => setIndex(index)
     if (swiper !== null) {
@@ -113,7 +138,7 @@ export default () => {
   const [desc, setDesc] = useState("")
   const [author, setAuthor] = useState("")
   useEffect( () => {
-    if (yearsSorted) {
+    if (index) {
       const getColorCode = year => year.colors.map(entry => entry.code).join(" - ")
       setCode(getColorCode(yearsSorted[index]))
 
@@ -123,36 +148,34 @@ export default () => {
       setDesc(yearsSorted[index].description)
       setAuthor(yearsSorted[index].author)
     }
-  }, [yearsSorted, index])
+  }, [index])
 
   return (
     <Wrapper height={height}>
-        <SwiperWrapper>
+        <SwiperWrapper showDesc={showDesc} onClick={() => setShowDesc(false)}>
           {yearsSorted && (
-            <Swiper initialSlide={yearsSorted.length} getSwiper={setSwiper} updateOnWindowResize={true}>
+            <Swiper {...params} initialSlide={yearsSorted.length} getSwiper={setSwiper} updateOnWindowResize={true}>
               {yearsSorted.map(y => {
                 return <Slide 
                 key={y.year}
                 colors={y.colors}>
-                  <Year colors={y.colors}>{y.year}</Year>
+                  <Year showDesc={showDesc} colors={y.colors}>{y.year}</Year>
                 </Slide>
               })}
             </Swiper>
           )}
         </SwiperWrapper>
 
-        <DescriptionWrapper onClick={() => setShowDesc(!showDesc)}>
+        <DescriptionWrapper showDesc={showDesc} onClick={() => setShowDesc(!showDesc)}>
           <TitleSection>
             <h2>PANTONE</h2>
             <p>{code}</p>
             <p>{name}</p>
           </TitleSection>
-          {showDesc && (
-            <DescriptionSection>
-              <p>{desc}</p>
-              <Author>{author}</Author>
-            </DescriptionSection>
-          )}
+          <DescriptionSection showDesc={showDesc}>
+            <p>{desc}</p>
+            <Author>{author}</Author>
+          </DescriptionSection>
         </DescriptionWrapper>
     </Wrapper>
   )
