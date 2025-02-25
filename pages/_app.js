@@ -1,7 +1,7 @@
 import App from 'next/app'
 import React from 'react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
-import 'swiper/css/swiper.css'
+import 'swiper/css'
 
 const GlobalTheme = createGlobalStyle`
   * {
