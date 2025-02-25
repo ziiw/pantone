@@ -122,20 +122,22 @@ export default () => {
       prevEl: '.swiper-button-prev'
     },
     renderPrevButton: () => <Arrow className='swiper-button-prev' />,
-    renderNextButton: () => <Arrow className='swiper-button-next' rotate={180}/>
+    renderNextButton: () => <Arrow className='swiper-button-next' rotate={180}/>,
+    on: {
+      slideChange: function(swiper) {
+        setIndex(swiper.activeIndex);
+      }
+    }
   }
+  
   const [swiper, setSwiper] = useState(null)
   const [index, setIndex] = useState(yearsSorted.length - 1)
+  
+  // For compatibility with Swiper 9.x, we'll update the useEffect
   useEffect(() => {
-    const setSlideIndex = index => setIndex(index)
     if (swiper !== null) {
-      swiper.on('slideChange', () => {
-        setSlideIndex(swiper.activeIndex)
-      })
-
-      return () => {
-        swiper.off('slideChange')
-      }
+      // Initialize with the correct index on first load
+      setIndex(swiper.activeIndex);
     }
   }, [swiper])
 
@@ -143,8 +145,9 @@ export default () => {
   const [name, setName] = useState("")
   const [desc, setDesc] = useState("")
   const [author, setAuthor] = useState("")
-  useEffect( () => {
-    if (index) {
+  
+  useEffect(() => {
+    if (index !== undefined && index >= 0 && index < yearsSorted.length) {
       const getColorCode = year => year.colors.map(entry => entry.code).join(" - ")
       setCode(getColorCode(yearsSorted[index]))
 
@@ -158,27 +161,27 @@ export default () => {
 
   return (
     <Wrapper height={height}>
-        <SwiperWrapper showDesc={showDesc} onClick={() => setShowDesc(false)}>
+        <SwiperWrapper $showDesc={showDesc} onClick={() => setShowDesc(false)}>
           {yearsSorted && (
-            <Swiper {...params} initialSlide={yearsSorted.length} getSwiper={setSwiper} updateOnWindowResize={true}>
+            <Swiper {...params} initialSlide={yearsSorted.length - 1} getSwiper={setSwiper} updateOnWindowResize={true}>
               {yearsSorted.map(y => {
                 return <Slide 
                 key={y.year}
                 colors={y.colors}>
-                  <Year showDesc={showDesc} colors={y.colors}>{y.year}</Year>
+                  <Year $showDesc={showDesc} colors={y.colors}>{y.year}</Year>
                 </Slide>
               })}
             </Swiper>
           )}
         </SwiperWrapper>
 
-        <DescriptionWrapper showDesc={showDesc} onClick={() => setShowDesc(!showDesc)}>
+        <DescriptionWrapper $showDesc={showDesc} onClick={() => setShowDesc(!showDesc)}>
           <TitleSection>
             <h2>PANTONE</h2>
             <p>{code}</p>
             <p>{name}</p>
           </TitleSection>
-          <DescriptionSection showDesc={showDesc}>
+          <DescriptionSection $showDesc={showDesc}>
             <p>{desc}</p>
             <Author>{author}</Author>
           </DescriptionSection>
