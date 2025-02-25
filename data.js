@@ -1,6 +1,95 @@
 const data = {
 	"years": [
 		{
+			"year": 2024,
+			"description": "PANTONE 13-1023 Peach Fuzz envelops us in a spirit of tenderness and heartfelt kindness, as we draw comfort in gathering with those we love. Its gentle lightness brings a feeling of coziness and harmony to our personal and digital lives, while inviting a soft radiance to both interiors and exteriors.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Peach Fuzz",
+					"code": "13-1023",
+					"hex": "FFBE98"
+				}
+			]
+		},
+		{
+			"year": 2023,
+			"description": "A crimson red tone with a powerful presence, PANTONE 18-1750 Viva Magenta balances boldness with a feeling of fun. Vibrating with vim and vigor, this animated red encourages experimentation and self-expression without restraint, representing a stand-out statement and welcoming anyone and everyone with the same rebellious spirit.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Viva Magenta",
+					"code": "18-1750",
+					"hex": "BB2649"
+				}
+			]
+		},
+		{
+			"year": 2022,
+			"description": "A dynamic periwinkle blue hue with a vivifying violet-red undertone, PANTONE 17-3938 Very Peri blends the faithfulness and constancy of blue with the energy and excitement of red. Displaying a carefree confidence and a daring curiosity, this new color helps us to embrace an altered landscape of possibilities.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Very Peri",
+					"code": "17-3938",
+					"hex": "6667AB"
+				}
+			]
+		},
+		{
+			"year": 2021,
+			"description": "A marriage of strength and hopefulness, Ultimate Gray and Illuminating convey a message of positivity supported by fortitude. Practical and rock solid but at the same time warming and optimistic, the union of these enduring and uplifting shades is one of strength and positivity.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Ultimate Gray",
+					"code": "17-5104",
+					"hex": "939597"
+				},
+				{
+					"name": "Illuminating",
+					"code": "13-0647",
+					"hex": "F5DF4D"
+				}
+			]
+		},
+		{
+			"year": 2020,
+			"description": "A timeless and enduring blue hue, Classic Blue is elegant in its simplicity. Suggestive of the sky at dusk, the reassuring qualities of the thought-provoking PANTONE 19-4052 Classic Blue highlight our desire for a dependable and stable foundation on which to build as we cross the threshold into a new era.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Classic Blue",
+					"code": "19-4052",
+					"hex": "0F4C81"
+				}
+			]
+		},
+		{
+			"year": 2019,
+			"description": "Living Coral embraces us with warmth and nourishment to provide comfort and buoyancy in our continually shifting environment. Symbolizing our innate need for optimism and joyful pursuits, PANTONE 16-1546, Living Coral embodies our desire for playful expression.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Living Coral",
+					"code": "16-1546",
+					"hex": "FF6F61"
+				}
+			]
+		},
+		{
+			"year": 2018,
+			"description": "A dramatically provocative and thoughtful purple shade, PANTONE 18-3838 Ultra Violet communicates originality, ingenuity, and visionary thinking that points us toward the future. Complex and contemplative, Ultra Violet suggests the mysteries of the cosmos, the intrigue of what lies ahead, and the discoveries beyond where we are now.",
+			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",
+			"colors": [
+				{
+					"name": "Ultra Violet",
+					"code": "18-3838",
+					"hex": "5F4B8B"
+				}
+			]
+		},
+		{
 			"year": 2017,
 			"description": "Greenery bursts forth in 2017 to provide us with the reassurance we yearn for amid a tumultuous social and political environment. Satisfying our growing desire to rejuvenate and revitalize, Greenery symbolizes the reconnection we seek with nature, one another and a larger purpose.",
 			"author": "Leatrice Eiseman Executive Director, Pantone Color Institute ®",

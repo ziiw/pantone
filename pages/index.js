@@ -38,7 +38,7 @@ const Slide = styled.div`
   text-align: center;
   height: 100%;
   background: ${props => getBackgroundColor(props.colors)};
-  font-family: Arial;
+  font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 800;
   display: flex;
   justify-content: center;
@@ -60,20 +60,23 @@ const getFontColor = colors => {
 
 const Year = styled.div`
   font-size: ${props => props.showDesc ? '4.5rem' : '6rem'};
-  font-family: 'Futura';
+  font-family: 'Futura', 'Montserrat', sans-serif;
   ${props => getFontColor(props.colors)}
   filter: brightness(0.85);
   transition: font-size 500ms ease;
+  letter-spacing: -0.02em;
+  font-weight: 800;
 `
 
 const TitleSection = styled.section`
-  font-family: 'Overpass';
+  font-family: 'Overpass', 'Open Sans', sans-serif;
   padding: 1rem 5vw;
   padding-bottom: 0;
 
   h2 {
     font-weight: 700;
     margin: 0;
+    letter-spacing: 0.03em;
   }
 
   p {
@@ -83,18 +86,21 @@ const TitleSection = styled.section`
 
 const DescriptionSection = styled.section`
   font-size: 14px;
-  font-family: 'Overpass';
+  font-family: 'Overpass', 'Open Sans', sans-serif;
   font-weight: 400;
   padding: 1rem 5vw;
   padding-top: 0;
   color: #ababab;
   opacity: ${props => props.showDesc ? 1 : 0};
   transition: opacity 0.5s ease;
+  line-height: 1.5;
 `
 
 const Author = styled.p`
   font-style: italic;
   color: black;
+  margin-top: 10px !important;
+  font-family: 'Overpass', 'Open Sans', sans-serif;
 `
 
 export default () => {
